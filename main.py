@@ -9,6 +9,9 @@ from sklearn.feature_selection import SelectKBest
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, precision_recall_fscore_support
 
+# Download VADER pre-trained lexicon dictionary
+nltk.download('vader_lexicon', quiet=True)
+
 # Load the 20 Newsgroup dataset
 df = pd.read_csv('20_Newsgroups.csv')
 
