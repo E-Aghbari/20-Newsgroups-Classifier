@@ -1,3 +1,4 @@
+import argparse
 import pandas as pd
 import numpy as np
 import nltk
@@ -12,12 +13,8 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 # Download VADER pre-trained lexicon dictionary
 nltk.download('vader_lexicon', quiet=True)
 
-# Load the 20 Newsgroup dataset
-df = pd.read_csv('20_Newsgroups.csv')
-
-# Extract raw text and labels (class-1 to class-6)
-texts = df['text'].values
-y = df['label'].values
+# Download nltk stopwords dictionary 
+nltk.download('stopwords', quiet=True)
 
 # Define a custom set of stopwords for TF-IDF vectorisation
 stop_words = set(nltk.corpus.stopwords.words('english'))
@@ -28,6 +25,12 @@ stop_words.update({"'", '*', '&', '-', '=', ';', '@', '.', 'http', ':', 't.co', 
 # Main pipeline funtion
 def main():
 
+    # Load dataset (default = 20 Newgroups or custom)
+    df = load_data()
+
+    # Extract raw text and labels (class-1 to class-6)
+    texts = df['text'].values
+    y = df['label'].values
 
     # Split the dataset into 20% test data
     X_full_train, X_test_text, y_full_train, y_test = train_test_split(
@@ -120,6 +123,17 @@ def main():
 
     return best_clf
 
+def load_data():
+    parser = argparse.ArgumentParser(description="20 Newsgroups Classifier")
+    parser.add_argument(
+        "--data",
+        type=str,
+        default="20_Newsgroups.csv",
+        help="Path to CSV file (default: 20_Newsgroups.csv)"
+    )
+    args = parser.parse_args()
+    df = pd.read_csv(args.data)
+    return df
 
 # Run the pipeline
 if __name__ == '__main__':
