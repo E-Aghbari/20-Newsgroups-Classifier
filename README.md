@@ -55,7 +55,7 @@ article n, class-4
 Any other dataset must follow this format.
 
 ## 5. How to Run the Code (Terminal Instructions)
-Run the default dataset (`20_Newsgroups.csv`):
+After installing dependencies, run the default dataset (`20_Newsgroups.csv`):
 ```bash
 python main.py
 ```
@@ -160,5 +160,6 @@ The final model is evaluated on the test set using:
 - Macro Precision
 - Macro Recall
 - Macro F1
+
 
 These metrics are printed in the terminal.
